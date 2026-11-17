@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Famílias - ASA</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SheetJS Style CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script></head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- CABEÇALHO -->
+    <header class="bg-blue-600 text-white shadow-md p-4">
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <h1 class="text-xl font-bold flex items-center gap-2">
+                📂 Gestão de Famílias (Mãe / Filho / Presença)
+            </h1>
+            <div class="flex gap-2 w-full sm:w-auto">
+                <label class="cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow transition flex-1 sm:flex-none text-center">
+                    📥 Importar Excel
+                    <input type="file" id="fileInput" accept=".xlsx, .xls, .csv" class="hidden">
+                </label>
+                <button onclick="exportarExcelEstilizado()" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow transition flex-1 sm:flex-none">
+                    📤 Exportar Excel Formatado
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="max-w-4xl w-full mx-auto p-4 flex-grow">
+
+        <!-- ESTADO INICIAL -->
+        <div id="welcomeScreen" class="bg-white rounded-xl shadow p-8 text-center my-10">
+            <div class="text-5xl mb-4">📊</div>
+            <h2 class="text-lg font-semibold mb-2">Nenhuma base carregada</h2>
+            <p class="text-slate-500 text-sm mb-6">Importe o arquivo Excel para começar a gerenciar.</p>
+        </div>
+
+        <!-- APLICAÇÃO -->
+        <div id="appContainer" class="hidden space-y-6">
+
+            <!-- BARRA DE BUSCA E NAVEGAÇÃO -->
+            <div class="bg-white rounded-xl shadow p-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="w-full md:w-1/2">
+                    <input type="text" id="searchInput" placeholder="Pesquisar por Nome, CPF ou Grupo..." 
+                           class="w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                           oninput="filtrarRegistros()">
+                </div>
+                <div class="flex items-center gap-2 w-full md:w-auto justify-between md:justify-end">
+                    <button onclick="irPara(0)" title="Primeiro" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 rounded text-sm font-bold">|&lt;</button>
+                    <button onclick="mudarRegistro(-1)" title="Anterior" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 rounded text-sm font-bold">&lt;</button>
+                    <span id="counterInfo" class="text-sm font-medium px-2 whitespace-nowrap">Registro 0 de 0</span>
+                    <button onclick="mudarRegistro(1)" title="Próximo" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 rounded text-sm font-bold">&gt;</button>
+                    <button onclick="irParaUltimo()" title="Último" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 rounded text-sm font-bold">&gt;|</button>
+                </div>
+            </div>
+
+            <!-- FORMULÁRIO PRINCIPAL: MÃE -->
+            <div class="bg-white rounded-xl shadow p-6">
+                <div class="flex justify-between items-center mb-4 border-b pb-3">
+                    <h2 class="font-bold text-blue-600 text-base uppercase tracking-wider">Dados da Mãe</h2>
+                    <span id="badgeGrupo" class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Grupo -</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">CPF (Chave)</label>
+                        <input type="text" id="maeCpf" class="w-full px-3 py-2 border rounded-lg bg-slate-50 text-sm font-mono" readonly>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Nome Completo</label>
+                        <input type="text" id="maeNome" onchange="atualizarMae()" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Telefone</label>
+                        <input type="text" id="maeTelefone" onchange="atualizarMae()" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Grupo</label>
+                        <input type="text" id="maeGrupo" onchange="atualizarMae()" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-FORMULÁRIO: FILHOS -->
+            <div class="bg-white rounded-xl shadow p-6">
+                <div class="flex justify-between items-center mb-4 border-b pb-3">
+                    <h2 class="font-bold text-emerald-600 text-base uppercase tracking-wider">Filhos Vinculados</h2>
+                    <button onclick="adicionarFilhoModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1.5 rounded font-medium transition">
+                        + Adicionar Filho
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-500 text-xs uppercase border-b">
+                                <th class="p-2">Nome do Filho</th>
+                                <th class="p-2 w-28">Anos</th>
+                                <th class="p-2 w-28">Meses</th>
+                                <th class="p-2 w-16 text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaFilhos"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SUB-FORMULÁRIO: PRESENÇA -->
+            <div class="bg-white rounded-xl shadow p-6">
+                <div class="flex justify-between items-center mb-4 border-b pb-3">
+                    <h2 class="font-bold text-purple-600 text-base uppercase tracking-wider">Histórico de Presença</h2>
+                    <button onclick="registrarPresencaHoje()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs px-3 py-1.5 rounded font-medium transition">
+                        ✓ Registrar Presença Hoje
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-500 text-xs uppercase border-b">
+                                <th class="p-2">Data</th>
+                                <th class="p-2 w-32">Status</th>
+                                <th class="p-2 w-16 text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaPresenca"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="text-center py-4 text-xs text-slate-400">
+        Aplicação Local Offline • Importação com Detecção Automática
+    </footer>
+
+    <!-- SCRIPT DA APLICAÇÃO -->
+    <script>
+        let db = { mae: [], filho: [], presenca: [] };
+        let registrosFiltrados = [];
+        let currentIndex = 0;
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    
+                    if (typeof XLSX === 'undefined') {
+                        alert("Erro crítico: A biblioteca SheetJS não foi carregada. Verifique sua conexão com a internet.");
+                        return;
+                    }
+
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    console.log("Abas encontradas no arquivo:", workbook.SheetNames);
+
+                    // Identifica as abas de forma inteligente (independente de maiúsculas/minúsculas ou acentos)
+                    const abaMae = workbook.SheetNames.find(n => n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes('mae')) || workbook.SheetNames[0];
+                    const abaFilho = workbook.SheetNames.find(n => n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes('filho')) || workbook.SheetNames[1];
+                    const abaPresenca = workbook.SheetNames.find(n => n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes('presen')) || workbook.SheetNames[2];
+
+                    db.mae = workbook.Sheets[abaMae] ? XLSX.utils.sheet_to_json(workbook.Sheets[abaMae], {defval: ""}) : [];
+                    db.filho = (abaFilho && workbook.Sheets[abaFilho]) ? XLSX.utils.sheet_to_json(workbook.Sheets[abaFilho], {defval: ""}) : [];
+                    db.presenca = (abaPresenca && workbook.Sheets[abaPresenca]) ? XLSX.utils.sheet_to_json(workbook.Sheets[abaPresenca], {defval: ""}) : [];
+
+                    if (db.mae.length === 0) {
+                        alert("Atenção: Não foi possível ler dados válidos da aba principal. Abas disponíveis no arquivo: " + workbook.SheetNames.join(", "));
+                        return;
+                    }
+
+                    registrosFiltrados = [...db.mae];
+                    currentIndex = 0;
+
+                    document.getElementById('welcomeScreen').classList.add('hidden');
+                    document.getElementById('appContainer').classList.remove('hidden');
+                    carregarRegistroAtual();
+                    
+                    console.log(`Importação bem-sucedida! Mães: ${db.mae.length}, Filhos: ${db.filho.length}`);
+                } catch (err) {
+                    console.error("Erro na leitura do Excel:", err);
+                    alert("Erro ao processar o arquivo Excel: " + err.message);
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        function carregarRegistroAtual() {
+            if (registrosFiltrados.length === 0) {
+                limparCamposVazios();
+                return;
+            }
+            if (currentIndex < 0) currentIndex = 0;
+            if (currentIndex >= registrosFiltrados.length) currentIndex = registrosFiltrados.length - 1;
+
+            const mae = registrosFiltrados[currentIndex];
+            document.getElementById('maeCpf').value = mae['CPF'] || '';
+            document.getElementById('maeNome').value = mae['Nome'] || '';
+            document.getElementById('maeTelefone').value = mae['Telefone'] || '';
+            document.getElementById('maeGrupo').value = mae['Grupo'] || '';
+            document.getElementById('badgeGrupo').innerText = `Grupo: ${mae['Grupo'] || 'N/D'}`;
+            document.getElementById('counterInfo').innerText = `Registro ${currentIndex + 1} de ${registrosFiltrados.length}`;
+
+            renderizarFilhos(mae['CPF']);
+            renderizarPresenca(mae['CPF']);
+        }
+
+        function limparCamposVazios() {
+            document.getElementById('maeCpf').value = '';
+            document.getElementById('maeNome').value = '';
+            document.getElementById('maeTelefone').value = '';
+            document.getElementById('maeGrupo').value = '';
+            document.getElementById('counterInfo').innerText = `0 de 0`;
+            document.getElementById('listaFilhos').innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Nenhum registro.</td></tr>`;
+            document.getElementById('listaPresenca').innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400">Nenhum registro.</td></tr>`;
+        }
+
+        function mudarRegistro(direcao) {
+            if (registrosFiltrados.length === 0) return;
+            currentIndex += direcao;
+            if (currentIndex < 0) currentIndex = 0;
+            if (currentIndex >= registrosFiltrados.length) currentIndex = registrosFiltrados.length - 1;
+            carregarRegistroAtual();
+        }
+
+        function irPara(index) { currentIndex = index; carregarRegistroAtual(); }
+        function irParaUltimo() { if (registrosFiltrados.length > 0) { currentIndex = registrosFiltrados.length - 1; carregarRegistroAtual(); } }
+
+        function filtrarRegistros() {
+            const termo = document.getElementById('searchInput').value.toLowerCase();
+            if (!termo) {
+                registrosFiltrados = [...db.mae];
+            } else {
+                registrosFiltrados = db.mae.filter(m => 
+                    String(m['Nome']).toLowerCase().includes(termo) ||
+                    String(m['CPF']).toLowerCase().includes(termo) ||
+                    String(m['Grupo']).toLowerCase().includes(termo)
+                );
+            }
+            currentIndex = 0;
+            carregarRegistroAtual();
+        }
+
+        function atualizarMae() {
+            const cpfAtual = document.getElementById('maeCpf').value;
+            const maeObj = db.mae.find(m => m['CPF'] === cpfAtual);
+            if (maeObj) {
+                maeObj['Nome'] = document.getElementById('maeNome').value;
+                maeObj['Telefone'] = document.getElementById('maeTelefone').value;
+                maeObj['Grupo'] = document.getElementById('maeGrupo').value;
+                document.getElementById('badgeGrupo').innerText = `Grupo: ${maeObj['Grupo']}`;
+            }
+        }
+
+        function renderizarFilhos(cpfMae) {
+            const tbody = document.getElementById('listaFilhos');
+            tbody.innerHTML = '';
+            const filhosDaMae = db.filho.filter(f => String(f['Mãe']) === String(cpfMae));
+
+            if (filhosDaMae.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Nenhum filho cadastrado.</td></tr>`;
+                return;
+            }
+
+            filhosDaMae.forEach((filho) => {
+                const globalIndex = db.filho.indexOf(filho);
+                const tr = document.createElement('tr');
+                tr.className = "border-b hover:bg-slate-50";
+                tr.innerHTML = `
+                    <td class="p-2"><input type="text" value="${filho['Nome']}" onchange="db.filho[${globalIndex}]['Nome']=this.value" class="w-full px-2 py-1 border rounded text-sm"></td>
+                    <td class="p-2"><input type="number" value="${filho['Idade Anos']}" onchange="db.filho[${globalIndex}]['Idade Anos']=this.value" class="w-full px-2 py-1 border rounded text-sm"></td>
+                    <td class="p-2"><input type="number" value="${filho['Idade Meses']}" onchange="db.filho[${globalIndex}]['Idade Meses']=this.value" class="w-full px-2 py-1 border rounded text-sm"></td>
+                    <td class="p-2 text-center"><button onclick="db.filho.splice(${globalIndex},1);renderizarFilhos('${cpfMae}')" class="text-red-500 hover:text-red-700 font-bold text-xs px-2 py-1 bg-red-50 rounded">Excluir</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function adicionarFilhoModal() {
+            const cpfAtual = document.getElementById('maeCpf').value;
+            if (!cpfAtual) return;
+            db.filho.push({ "Mãe": cpfAtual, "Nome": "Novo Filho", "Idade Anos": 0, "Idade Meses": 0 });
+            renderizarFilhos(cpfAtual);
+        }
+
+        function renderizarPresenca(cpfMae) {
+            const tbody = document.getElementById('listaPresenca');
+            tbody.innerHTML = '';
+            const presencasDaMae = db.presenca.filter(p => String(p['Mãe']) === String(cpfMae));
+
+            if (presencasDaMae.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400">Nenhum registro de presença.</td></tr>`;
+                return;
+            }
+
+            presencasDaMae.forEach((p) => {
+                const globalIndex = db.presenca.indexOf(p);
+                const tr = document.createElement('tr');
+                tr.className = "border-b hover:bg-slate-50";
+                tr.innerHTML = `
+                    <td class="p-2"><input type="text" value="${p['Data']}" onchange="db.presenca[${globalIndex}]['Data']=this.value" class="w-full px-2 py-1 border rounded text-sm"></td>
+                    <td class="p-2">
+                        <select onchange="db.presenca[${globalIndex}]['Presente']=this.value" class="w-full px-2 py-1 border rounded text-sm">
+                            <option value="Sim" ${p['Presente'] === 'Sim' ? 'selected' : ''}>Presente</option>
+                            <option value="Não" ${p['Presente'] === 'Não' ? 'selected' : ''}>Falta</option>
+                        </select>
+                    </td>
+                    <td class="p-2 text-center"><button onclick="db.presenca.splice(${globalIndex},1);renderizarPresenca('${cpfMae}')" class="text-red-500 hover:text-red-700 font-bold text-xs px-2 py-1 bg-red-50 rounded">Excluir</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function registrarPresencaHoje() {
+            const cpfAtual = document.getElementById('maeCpf').value;
+            if (!cpfAtual) return;
+            const hoje = new Date().toLocaleDateString('pt-BR');
+            if (db.presenca.some(p => String(p['Mãe']) === String(cpfAtual) && String(p['Data']) === hoje)) {
+                alert("Já existe presença registrada hoje!");
+                return;
+            }
+            db.presenca.push({ "Mãe": cpfAtual, "Data": hoje, "Presente": "Sim" });
+            renderizarPresenca(cpfAtual);
+        }
+
+        // EXPORTAÇÃO ESTILIZADA
+        function exportarExcelEstilizado() {
+            if (db.mae.length === 0) {
+                alert("Não há dados para exportar.");
+                return;
+            }
+
+            const wb = XLSX.utils.book_new();
+
+            const formatarAbaComEstilo = (dados, nomeAba) => {
+                const ws = XLSX.utils.json_to_sheet(dados);
+                const range = XLSX.utils.decode_range(ws['!ref']);
+                
+                ws['!autofilter'] = { ref: XLSX.utils.encode_range(range) };
+
+                for (let R = range.s.r; R <= range.e.r; ++R) {
+                    for (let C = range.s.c; C <= range.e.c; ++C) {
+                        const cellAddress = XLSX.utils.encode_cell({ r: R, c: C });
+                        if (!ws[cellAddress]) continue;
+
+                        if (!ws[cellAddress].s) ws[cellAddress].s = {};
+
+                        ws[cellAddress].s.border = {
+                            top: { style: "thin", color: { rgb: "000000" } },
+                            bottom: { style: "thin", color: { rgb: "000000" } },
+                            left: { style: "thin", color: { rgb: "000000" } },
+                            right: { style: "thin", color: { rgb: "000000" } }
+                        };
+
+                        if (R === 0) {
+                            ws[cellAddress].s.font = { bold: true, color: { rgb: "000000" } };
+                            ws[cellAddress].s.fill = { fgColor: { rgb: "D3D3D3" } };
+                        } else {
+                            if (R % 2 === 0) {
+                                ws[cellAddress].s.fill = { fgColor: { rgb: "F2F2F2" } };
+                            } else {
+                                ws[cellAddress].s.fill = { fgColor: { rgb: "FFFFFF" } };
+                            }
+                        }
+                    }
+                }
+                XLSX.utils.book_append_sheet(wb, ws, nomeAba);
+            };
+
+            formatarAbaComEstilo(db.mae, "Mãe");
+            formatarAbaComEstilo(db.filho, "Filho");
+            formatarAbaComEstilo(db.presenca, "Presença");
+
+            XLSX.writeFile(wb, "base_unificada_formatada.xlsx");
+        }
+    </script>
+</body>
+</html>
