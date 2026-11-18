@@ -3,130 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Famílias - ASA</title>
+    <title>ASA - Ação Solidária Adventista | Gestão de Famílias</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- SheetJS Style CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script></head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        asa: {
+                            navy: '#003B71',
+                            blue: '#0077C8',
+                            light: '#EBF5FC',
+                            orange: '#F58220',
+                            orangeHover: '#D96B0D',
+                            green: '#1E824C',
+                            greenHover: '#16633A',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#F4F7FA] text-slate-800 min-h-screen flex flex-col justify-between antialiased">
 
-    <!-- CABEÇALHO -->
-    <header class="bg-blue-600 text-white shadow-md p-4">
-        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-            <h1 class="text-xl font-bold flex items-center gap-2">
-                📂 Gestão de Famílias (Mãe / Filho / Presença)
-            </h1>
-            <div class="flex gap-2 w-full sm:w-auto">
-                <label class="cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow transition flex-1 sm:flex-none text-center">
-                    📥 Importar Excel
+    <!-- CABEÇALHO IDENTIDADE ASA -->
+    <header class="bg-gradient-to-r from-asa-navy via-[#004A8F] to-asa-blue text-white shadow-lg border-b-4 border-asa-orange">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3.5">
+                <div class="bg-white p-2 rounded-xl shadow-md flex items-center justify-center shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 300 300" version="1.1">
+                        <path d="M 90.748 58.376 C 71.033 65.679, 60.734 93.467, 76.281 97.411 C 89.243 100.699, 110.471 77.853, 106.828 64.536 C 105.084 58.163, 98.319 55.571, 90.748 58.376 M 78.500 99.948 C 49.068 106.323, 35.198 132.004, 44.994 161.981 C 51.824 182.884, 66.250 200.194, 96.034 223.228 C 114.197 237.275, 147.623 258.626, 150.138 257.787 C 150.768 257.577, 145.482 252.401, 138.391 246.285 C 112.585 224.022, 99.163 208.052, 88.989 187.500 C 80.811 170.982, 77.838 160.363, 77.649 147 C 77.531 138.701, 77.919 135.370, 79.498 131.109 C 82.036 124.263, 87.618 117.901, 93.730 114.888 C 97.943 112.811, 99.901 112.538, 110.500 112.553 C 122.695 112.569, 126.219 113.242, 140.274 118.234 C 143.450 119.362, 146.279 120.054, 146.562 119.771 C 148.249 118.084, 122.611 105.285, 111 102.019 C 102.652 99.670, 84.979 98.544, 78.500 99.948 M 128 186.676 L 120.500 188.144 116.182 194.170 C 113.807 197.485, 112.124 200.458, 112.443 200.776 C 112.762 201.095, 118.583 200.376, 125.379 199.178 C 140.579 196.499, 142.482 196.482, 145 199 L 147 201 147 196.500 C 147 192.667, 146.704 192, 145 192 C 143.900 192, 143 191.550, 143 191 C 143 190.450, 143.931 190, 145.070 190 C 146.644 190, 147.063 189.461, 146.820 187.750 C 146.535 185.750, 145.890 185.484, 141 185.354 C 137.975 185.273, 132.125 185.868, 128 186.676 M 156.257 189.249 C 152.651 192.932, 148.003 201, 149.487 201 C 149.769 201, 150.956 200.044, 152.125 198.875 C 153.998 197.002, 154.981 196.824, 160.397 197.379 C 163.777 197.726, 169.684 198.674, 173.522 199.487 C 180.977 201.066, 185 201.381, 185 200.385 C 185 200.047, 183.088 197.155, 180.750 193.958 C 176.600 188.283, 176.348 188.120, 170 187.030 C 166.425 186.416, 162.807 185.707, 161.959 185.456 C 161.059 185.188, 158.689 186.764, 156.257 189.249" stroke="none" fill="#1c3c34" fill-rule="evenodd"/>
+                        <path d="M 167 41.613 C 162.597 43.178, 160.553 44.829, 159.295 47.839 C 154.764 58.676, 171.585 74.662, 188.699 75.784 C 195.720 76.245, 195.976 76.178, 199.072 73.082 C 201.972 70.182, 202.205 69.482, 201.771 64.972 C 200.712 53.944, 187.705 43.445, 172.833 41.614 C 170.450 41.321, 167.825 41.320, 167 41.613 M 193.500 78.950 C 176.238 82.679, 161.587 94.450, 152.912 111.560 C 150.564 116.189, 148.850 120.184, 149.103 120.436 C 149.356 120.689, 151.183 118.898, 153.163 116.455 C 158.092 110.378, 165.337 104.559, 171.961 101.358 C 176.244 99.288, 179.462 98.577, 186.153 98.223 C 193.804 97.818, 195.431 98.051, 200.199 100.233 C 207.554 103.601, 212.114 107.851, 215.738 114.715 C 220.060 122.901, 221.376 129.984, 220.743 141.656 C 219.144 171.147, 199.542 205.998, 162.750 244.761 C 156.287 251.570, 151 257.551, 151 258.052 C 151 260.428, 183.945 238.969, 199.540 226.436 C 222.431 208.039, 234.718 195.286, 243.042 181.282 C 253.188 164.210, 258 148.995, 258 133.978 C 258 108.808, 244.917 89.556, 222.179 81.265 C 214.811 78.578, 200.549 77.427, 193.500 78.950 M 152.877 136.250 C 152.221 137.488, 147.266 143.054, 141.866 148.621 C 136.467 154.187, 131.557 160.036, 130.955 161.618 C 129.428 165.634, 130.745 175.450, 133.359 179.540 C 136.523 184.491, 137.894 184.631, 137.265 179.940 C 136.757 176.155, 137.011 175.743, 144.741 167.761 C 149.143 163.218, 153.215 158.585, 153.791 157.466 C 154.723 155.658, 155.307 134, 154.424 134 C 154.229 134, 153.533 135.012, 152.877 136.250 M 140.978 156.750 L 132.500 165.500 141.250 157.022 C 149.377 149.148, 150.456 148, 149.728 148 C 149.578 148, 145.641 151.938, 140.978 156.750 M 159.803 158.434 C 160.148 161.391, 159.572 162.543, 155.654 166.732 C 150.022 172.752, 149.245 174.758, 149.248 183.250 C 149.250 189.934, 149.277 190, 151.980 190 C 153.988 190, 156.071 188.561, 159.858 184.556 C 162.690 181.562, 165.486 177.851, 166.073 176.309 C 167.740 171.922, 166.214 162.148, 163.256 158.269 C 160.083 154.110, 159.302 154.147, 159.803 158.434 M 141.336 163.500 C 138.679 165.975, 136.972 168, 137.544 168 C 138.116 168, 140.571 165.975, 143 163.500 C 145.429 161.025, 147.136 159, 146.792 159 C 146.449 159, 143.994 161.025, 141.336 163.500 M 156 173.500 C 153.571 175.975, 151.809 178, 152.084 178 C 152.359 178, 154.571 175.975, 157 173.500 C 159.429 171.025, 161.191 169, 160.916 169 C 160.641 169, 158.429 171.025, 156 173.500 M 159.500 177 C 157.352 179.200, 156.098 181, 156.713 181 C 157.328 181, 159.258 179.200, 161 177 C 162.742 174.800, 163.997 173, 163.787 173 C 163.577 173, 161.648 174.800, 159.500 177 M 149.667 192.667 C 148.682 193.652, 148.857 197, 149.893 197 C 150.786 197, 152 194.649, 152 192.918 C 152 191.849, 150.632 191.701, 149.667 192.667" stroke="none" fill="#bc9414" fill-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-display font-extrabold text-xl tracking-tight leading-none">ASA</span>
+                        <span class="text-xs font-semibold uppercase tracking-widest bg-white/15 px-2 py-0.5 rounded text-blue-100">Ação Solidária Adventista</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-blue-100 mt-1 font-medium">Sistema de Cadastro e Acompanhamento Familiar</p>
+                </div>
+            </div>
+
+            <div class="flex gap-2.5 w-full sm:w-auto">
+                <label class="cursor-pointer bg-asa-green hover:bg-asa-greenHover text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow-md transition flex items-center justify-center gap-2 flex-1 sm:flex-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <span>Importar Excel</span>
                     <input type="file" id="fileInput" accept=".xlsx, .xls, .csv" class="hidden">
                 </label>
-                <button onclick="exportarExcelEstilizado()" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow transition flex-1 sm:flex-none">
-                    📤 Exportar Excel Formatado
+                <button onclick="exportarExcelEstilizado()" class="bg-asa-orange hover:bg-asa-orangeHover text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow-md transition flex items-center justify-center gap-2 flex-1 sm:flex-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    <span>Exportar Planilha</span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- CONTEÚDO PRINCIPAL -->
-    <main class="max-w-4xl w-full mx-auto p-4 flex-grow">
+    <main class="max-w-5xl w-full mx-auto p-4 sm:p-6 flex-grow">
 
         <!-- ESTADO INICIAL -->
-        <div id="welcomeScreen" class="bg-white rounded-xl shadow p-8 text-center my-10">
-            <div class="text-5xl mb-4">📊</div>
-            <h2 class="text-lg font-semibold mb-2">Nenhuma base carregada</h2>
-            <p class="text-slate-500 text-sm mb-6">Importe o arquivo Excel para começar a gerenciar.</p>
+        <div id="welcomeScreen" class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 sm:p-12 text-center my-8 max-w-2xl mx-auto">
+            <div class="w-20 h-20 bg-asa-light text-asa-navy rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-inner">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 300 300" version="1.1">
+                        <path d="M 90.748 58.376 C 71.033 65.679, 60.734 93.467, 76.281 97.411 C 89.243 100.699, 110.471 77.853, 106.828 64.536 C 105.084 58.163, 98.319 55.571, 90.748 58.376 M 78.500 99.948 C 49.068 106.323, 35.198 132.004, 44.994 161.981 C 51.824 182.884, 66.250 200.194, 96.034 223.228 C 114.197 237.275, 147.623 258.626, 150.138 257.787 C 150.768 257.577, 145.482 252.401, 138.391 246.285 C 112.585 224.022, 99.163 208.052, 88.989 187.500 C 80.811 170.982, 77.838 160.363, 77.649 147 C 77.531 138.701, 77.919 135.370, 79.498 131.109 C 82.036 124.263, 87.618 117.901, 93.730 114.888 C 97.943 112.811, 99.901 112.538, 110.500 112.553 C 122.695 112.569, 126.219 113.242, 140.274 118.234 C 143.450 119.362, 146.279 120.054, 146.562 119.771 C 148.249 118.084, 122.611 105.285, 111 102.019 C 102.652 99.670, 84.979 98.544, 78.500 99.948 M 128 186.676 L 120.500 188.144 116.182 194.170 C 113.807 197.485, 112.124 200.458, 112.443 200.776 C 112.762 201.095, 118.583 200.376, 125.379 199.178 C 140.579 196.499, 142.482 196.482, 145 199 L 147 201 147 196.500 C 147 192.667, 146.704 192, 145 192 C 143.900 192, 143 191.550, 143 191 C 143 190.450, 143.931 190, 145.070 190 C 146.644 190, 147.063 189.461, 146.820 187.750 C 146.535 185.750, 145.890 185.484, 141 185.354 C 137.975 185.273, 132.125 185.868, 128 186.676 M 156.257 189.249 C 152.651 192.932, 148.003 201, 149.487 201 C 149.769 201, 150.956 200.044, 152.125 198.875 C 153.998 197.002, 154.981 196.824, 160.397 197.379 C 163.777 197.726, 169.684 198.674, 173.522 199.487 C 180.977 201.066, 185 201.381, 185 200.385 C 185 200.047, 183.088 197.155, 180.750 193.958 C 176.600 188.283, 176.348 188.120, 170 187.030 C 166.425 186.416, 162.807 185.707, 161.959 185.456 C 161.059 185.188, 158.689 186.764, 156.257 189.249" stroke="none" fill="#1c3c34" fill-rule="evenodd"/>
+                        <path d="M 167 41.613 C 162.597 43.178, 160.553 44.829, 159.295 47.839 C 154.764 58.676, 171.585 74.662, 188.699 75.784 C 195.720 76.245, 195.976 76.178, 199.072 73.082 C 201.972 70.182, 202.205 69.482, 201.771 64.972 C 200.712 53.944, 187.705 43.445, 172.833 41.614 C 170.450 41.321, 167.825 41.320, 167 41.613 M 193.500 78.950 C 176.238 82.679, 161.587 94.450, 152.912 111.560 C 150.564 116.189, 148.850 120.184, 149.103 120.436 C 149.356 120.689, 151.183 118.898, 153.163 116.455 C 158.092 110.378, 165.337 104.559, 171.961 101.358 C 176.244 99.288, 179.462 98.577, 186.153 98.223 C 193.804 97.818, 195.431 98.051, 200.199 100.233 C 207.554 103.601, 212.114 107.851, 215.738 114.715 C 220.060 122.901, 221.376 129.984, 220.743 141.656 C 219.144 171.147, 199.542 205.998, 162.750 244.761 C 156.287 251.570, 151 257.551, 151 258.052 C 151 260.428, 183.945 238.969, 199.540 226.436 C 222.431 208.039, 234.718 195.286, 243.042 181.282 C 253.188 164.210, 258 148.995, 258 133.978 C 258 108.808, 244.917 89.556, 222.179 81.265 C 214.811 78.578, 200.549 77.427, 193.500 78.950 M 152.877 136.250 C 152.221 137.488, 147.266 143.054, 141.866 148.621 C 136.467 154.187, 131.557 160.036, 130.955 161.618 C 129.428 165.634, 130.745 175.450, 133.359 179.540 C 136.523 184.491, 137.894 184.631, 137.265 179.940 C 136.757 176.155, 137.011 175.743, 144.741 167.761 C 149.143 163.218, 153.215 158.585, 153.791 157.466 C 154.723 155.658, 155.307 134, 154.424 134 C 154.229 134, 153.533 135.012, 152.877 136.250 M 140.978 156.750 L 132.500 165.500 141.250 157.022 C 149.377 149.148, 150.456 148, 149.728 148 C 149.578 148, 145.641 151.938, 140.978 156.750 M 159.803 158.434 C 160.148 161.391, 159.572 162.543, 155.654 166.732 C 150.022 172.752, 149.245 174.758, 149.248 183.250 C 149.250 189.934, 149.277 190, 151.980 190 C 153.988 190, 156.071 188.561, 159.858 184.556 C 162.690 181.562, 165.486 177.851, 166.073 176.309 C 167.740 171.922, 166.214 162.148, 163.256 158.269 C 160.083 154.110, 159.302 154.147, 159.803 158.434 M 141.336 163.500 C 138.679 165.975, 136.972 168, 137.544 168 C 138.116 168, 140.571 165.975, 143 163.500 C 145.429 161.025, 147.136 159, 146.792 159 C 146.449 159, 143.994 161.025, 141.336 163.500 M 156 173.500 C 153.571 175.975, 151.809 178, 152.084 178 C 152.359 178, 154.571 175.975, 157 173.500 C 159.429 171.025, 161.191 169, 160.916 169 C 160.641 169, 158.429 171.025, 156 173.500 M 159.500 177 C 157.352 179.200, 156.098 181, 156.713 181 C 157.328 181, 159.258 179.200, 161 177 C 162.742 174.800, 163.997 173, 163.787 173 C 163.577 173, 161.648 174.800, 159.500 177 M 149.667 192.667 C 148.682 193.652, 148.857 197, 149.893 197 C 150.786 197, 152 194.649, 152 192.918 C 152 191.849, 150.632 191.701, 149.667 192.667" stroke="none" fill="#bc9414" fill-rule="evenodd"/>
+                </svg>
+            </div>
+            <h2 class="font-display text-xl font-bold text-asa-navy mb-2">Bem-vindo à Gestão de Cadastros da ASA</h2>
+            <p class="text-slate-500 text-sm max-w-md mx-auto mb-6 leading-relaxed">
+                Importe sua base de dados em Excel (<code class="bg-slate-100 text-asa-navy px-1.5 py-0.5 rounded font-mono text-xs">.xlsx</code>) para consultar e gerenciar os cadastros.
+            </p>
+            <label class="inline-flex items-center gap-2 cursor-pointer bg-asa-navy hover:bg-asa-blue text-white px-6 py-3 rounded-xl text-sm font-semibold shadow-md transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span>Selecionar Arquivo Excel</span>
+                <input type="file" onchange="document.getElementById('fileInput').files = this.files; document.getElementById('fileInput').dispatchEvent(new Event('change'));" accept=".xlsx, .xls, .csv" class="hidden">
+            </label>
         </div>
 
         <!-- APLICAÇÃO -->
         <div id="appContainer" class="hidden space-y-6">
 
             <!-- BARRA DE BUSCA E NAVEGAÇÃO -->
-            <div class="bg-white rounded-xl shadow p-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="w-full md:w-1/2">
-                    <input type="text" id="searchInput" placeholder="Pesquisar por Nome, CPF ou Grupo..." 
-                           class="w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="relative w-full md:w-1/2">
+                    <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <input type="text" id="searchInput" placeholder="Buscar por Nome, CPF, Cadastro, Bairro ou Grupo..." 
+                           class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-asa-blue bg-slate-50/50"
                            oninput="filtrarRegistros()">
                 </div>
-                <div class="flex items-center gap-2 w-full md:w-auto justify-between md:justify-end">
-                    <button onclick="irPara(0)" title="Primeiro" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 rounded text-sm font-bold">|&lt;</button>
-                    <button onclick="mudarRegistro(-1)" title="Anterior" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 rounded text-sm font-bold">&lt;</button>
-                    <span id="counterInfo" class="text-sm font-medium px-2 whitespace-nowrap">Registro 0 de 0</span>
-                    <button onclick="mudarRegistro(1)" title="Próximo" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 rounded text-sm font-bold">&gt;</button>
-                    <button onclick="irParaUltimo()" title="Último" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 rounded text-sm font-bold">&gt;|</button>
+                <div class="flex items-center gap-1.5 w-full md:w-auto justify-between md:justify-end">
+                    <button onclick="irPara(0)" class="px-3 py-2 bg-slate-100 hover:bg-asa-light text-asa-navy rounded-lg text-xs font-bold transition">|&lt;</button>
+                    <button onclick="mudarRegistro(-1)" class="px-3 py-2 bg-slate-100 hover:bg-asa-light text-asa-navy rounded-lg text-xs font-bold transition">&lt; Anterior</button>
+                    <span id="counterInfo" class="text-xs font-bold text-asa-navy bg-asa-light px-3 py-2 rounded-lg whitespace-nowrap">0 de 0</span>
+                    <button onclick="mudarRegistro(1)" class="px-3 py-2 bg-slate-100 hover:bg-asa-light text-asa-navy rounded-lg text-xs font-bold transition">Próximo &gt;</button>
+                    <button onclick="irParaUltimo()" class="px-3 py-2 bg-slate-100 hover:bg-asa-light text-asa-navy rounded-lg text-xs font-bold transition">&gt;|</button>
                 </div>
             </div>
 
-            <!-- FORMULÁRIO PRINCIPAL: MÃE -->
-            <div class="bg-white rounded-xl shadow p-6">
-                <div class="flex justify-between items-center mb-4 border-b pb-3">
-                    <h2 class="font-bold text-blue-600 text-base uppercase tracking-wider">Dados da Mãe</h2>
-                    <span id="badgeGrupo" class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Grupo -</span>
+            <!-- MÃE -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+                <div class="bg-asa-light/60 px-6 py-4 border-b border-slate-200/80 flex flex-wrap justify-between items-center gap-2">
+                    <div class="flex items-center gap-3">
+                        <span class="w-2.5 h-6 bg-asa-navy rounded-full"></span>
+                        <h2 class="font-display font-bold text-asa-navy text-base uppercase tracking-wide">Dados da Mãe</h2>
+                        <span id="badgeCadastro" class="bg-white border border-slate-200 text-asa-navy text-xs font-mono font-bold px-2.5 py-0.5 rounded-md">Cadastro</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <span id="badgeGrupo" class="bg-asa-blue text-white text-xs font-semibold px-3 py-1 rounded-full">Grupo: -</span>
+                        <button onclick="novaMaeModal()" class="bg-asa-navy hover:bg-asa-blue text-white text-xs px-3.5 py-1.5 rounded-lg font-semibold transition">+ Nova Família</button>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Cadastro (Nº)</label>
+                        <input type="number" id="maeCadastro" onchange="atualizarMae()" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-asa-blue">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Data de Entrada</label>
+                        <input type="text" id="maeDataEntrada" placeholder="DD/MM/AAAA" onchange="atualizarMae()" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-asa-blue">
+                    </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase mb-1">CPF (Chave)</label>
-                        <input type="text" id="maeCpf" class="w-full px-3 py-2 border rounded-lg bg-slate-50 text-sm font-mono" readonly>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Nome Completo</label>
-                        <input type="text" id="maeNome" onchange="atualizarMae()" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Telefone</label>
-                        <input type="text" id="maeTelefone" onchange="atualizarMae()" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+                        <input type="text" id="maeCpf" class="w-full px-3 py-2 border border-slate-200 rounded-xl bg-slate-100 text-slate-600 text-sm font-mono" readonly>
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Grupo</label>
-                        <input type="text" id="maeGrupo" onchange="atualizarMae()" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-blue-500">
+                        <input type="text" id="maeGrupo" onchange="atualizarMae()" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-asa-blue">
+                    </div>
+
+                    <div class="sm:col-span-2 md:col-span-3">
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Nome Completo</label>
+                        <input type="text" id="maeNome" onchange="atualizarMae()" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-asa-blue">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Telefone</label>
+                        <input type="text" id="maeTelefone" onchange="atualizarMae()" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-asa-blue">
+                    </div>
+
+                    <div class="sm:col-span-2 md:col-span-3">
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Endereço</label>
+                        <input type="text" id="maeEndereco" onchange="atualizarMae()" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-asa-blue">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Bairro</label>
+                        <input type="text" id="maeBairro" onchange="atualizarMae()" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-asa-blue">
+                    </div>
+
+                    <div class="col-span-full">
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Observação</label>
+                        <input type="text" id="maeObservacao" onchange="atualizarMae()" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-asa-blue">
                     </div>
                 </div>
             </div>
 
-            <!-- SUB-FORMULÁRIO: FILHOS -->
-            <div class="bg-white rounded-xl shadow p-6">
-                <div class="flex justify-between items-center mb-4 border-b pb-3">
-                    <h2 class="font-bold text-emerald-600 text-base uppercase tracking-wider">Filhos Vinculados</h2>
-                    <button onclick="adicionarFilhoModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1.5 rounded font-medium transition">
-                        + Adicionar Filho
-                    </button>
+            <!-- FILHOS -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+                <div class="bg-emerald-50/70 px-6 py-4 border-b border-slate-200/80 flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <span class="w-2.5 h-6 bg-asa-green rounded-full"></span>
+                        <h2 class="font-display font-bold text-asa-green text-base uppercase tracking-wide">Filhos Vinculados</h2>
+                    </div>
+                    <button onclick="adicionarFilhoModal()" class="bg-asa-green hover:bg-asa-greenHover text-white text-xs px-3.5 py-1.5 rounded-lg font-semibold transition">+ Adicionar Filho</button>
                 </div>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm">
+                <div class="p-6 overflow-x-auto">
+                    <table class="w-full text-left text-sm min-w-[600px]">
                         <thead>
-                            <tr class="bg-slate-50 text-slate-500 text-xs uppercase border-b">
-                                <th class="p-2">Nome do Filho</th>
-                                <th class="p-2 w-28">Anos</th>
-                                <th class="p-2 w-28">Meses</th>
-                                <th class="p-2 w-16 text-center">Ações</th>
+                            <tr class="bg-slate-50 text-slate-500 text-xs uppercase border-b border-slate-200">
+                                <th class="p-2.5 font-bold">Nome do Filho</th>
+                                <th class="p-2.5 w-24 font-bold">Sexo</th>
+                                <th class="p-2.5 w-32 font-bold">Nascimento</th>
+                                <th class="p-2.5 w-28 font-bold">Idade</th>
+                                <th class="p-2.5 font-bold">Observação</th>
+                                <th class="p-2.5 w-20 text-center font-bold">Ações</th>
                             </tr>
                         </thead>
-                        <tbody id="listaFilhos"></tbody>
+                        <tbody id="listaFilhos" class="divide-y divide-slate-100"></tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- SUB-FORMULÁRIO: PRESENÇA -->
-            <div class="bg-white rounded-xl shadow p-6">
-                <div class="flex justify-between items-center mb-4 border-b pb-3">
-                    <h2 class="font-bold text-purple-600 text-base uppercase tracking-wider">Histórico de Presença</h2>
-                    <button onclick="registrarPresencaHoje()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs px-3 py-1.5 rounded font-medium transition">
-                        ✓ Registrar Presença Hoje
-                    </button>
+            <!-- PRESENÇA -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+                <div class="bg-orange-50/70 px-6 py-4 border-b border-slate-200/80 flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <span class="w-2.5 h-6 bg-asa-orange rounded-full"></span>
+                        <h2 class="font-display font-bold text-asa-orangeHover text-base uppercase tracking-wide">Histórico de Presença</h2>
+                    </div>
+                    <button onclick="registrarPresencaHoje()" class="bg-asa-orange hover:bg-asa-orangeHover text-white text-xs px-3.5 py-1.5 rounded-lg font-semibold transition">✓ Registrar Presença Hoje</button>
                 </div>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm">
+                <div class="p-6 overflow-x-auto">
+                    <table class="w-full text-left text-sm min-w-[550px]">
                         <thead>
-                            <tr class="bg-slate-50 text-slate-500 text-xs uppercase border-b">
-                                <th class="p-2">Data</th>
-                                <th class="p-2 w-32">Status</th>
-                                <th class="p-2 w-16 text-center">Ações</th>
+                            <tr class="bg-slate-50 text-slate-500 text-xs uppercase border-b border-slate-200">
+                                <th class="p-2.5 w-36 font-bold">Data</th>
+                                <th class="p-2.5 w-32 font-bold">Presente</th>
+                                <th class="p-2.5 font-bold">Observação</th>
+                                <th class="p-2.5 w-20 text-center font-bold">Ações</th>
                             </tr>
                         </thead>
-                        <tbody id="listaPresenca"></tbody>
+                        <tbody id="listaPresenca" class="divide-y divide-slate-100"></tbody>
                     </table>
                 </div>
             </div>
@@ -135,15 +224,56 @@
     </main>
 
     <!-- RODAPÉ -->
-    <footer class="text-center py-4 text-xs text-slate-400">
-        Aplicação Local Offline • Importação com Detecção Automática
+    <footer class="bg-white border-t border-slate-200 py-4 mt-8">
+        <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-slate-500">
+            <span class="font-semibold text-asa-navy">ASA • Ação Solidária Adventista</span>
+            <span>Operação Local Offline • Exportação Padronizada</span>
+        </div>
     </footer>
 
-    <!-- SCRIPT DA APLICAÇÃO -->
+    <!-- SCRIPT -->
     <script>
         let db = { mae: [], filho: [], presenca: [] };
         let registrosFiltrados = [];
         let currentIndex = 0;
+
+        function getValor(obj, chavesPossiveis) {
+            for (let chave of chavesPossiveis) {
+                if (obj[chave] !== undefined && obj[chave] !== null && obj[chave] !== "") return obj[chave];
+            }
+            return "";
+        }
+
+        function setValor(obj, chavesPossiveis, valor) {
+            const chaveAlvo = chavesPossiveis.find(c => obj[c] !== undefined) || chavesPossiveis[0];
+            obj[chaveAlvo] = valor;
+        }
+
+        function calcularIdadeExportacao(dataStr) {
+            if (!dataStr) return { texto: "0a 0m", filtro: 0 };
+            const partes = String(dataStr).split('/');
+            if (partes.length !== 3) return { texto: String(dataStr), filtro: 0 };
+            
+            const dia = parseInt(partes[0], 10);
+            const mes = parseInt(partes[1], 10) - 1;
+            const ano = parseInt(partes[2], 10);
+            
+            const nasc = new Date(ano, mes, dia);
+            const hoje = new Date();
+            
+            if (isNaN(nasc.getTime())) return { texto: String(dataStr), filtro: 0 };
+
+            let anos = hoje.getFullYear() - nasc.getFullYear();
+            let meses = hoje.getMonth() - nasc.getMonth();
+            let dias = hoje.getDate() - nasc.getDate();
+            
+            if (dias < 0) meses--;
+            if (meses < 0) { anos--; meses += 12; }
+            if (anos < 0) return { texto: "0a 0m", filtro: 0 };
+            
+            const idadeNumerica = Number((anos + (meses / 12)).toFixed(2));
+            return { texto: `${anos}a ${meses}m`, filtro: idadeNumerica };
+        }
 
         document.getElementById('fileInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -153,16 +283,14 @@
             reader.onload = function(e) {
                 try {
                     const data = new Uint8Array(e.target.result);
-                    
                     if (typeof XLSX === 'undefined') {
-                        alert("Erro crítico: A biblioteca SheetJS não foi carregada. Verifique sua conexão com a internet.");
+                        alert("Erro crítico: A biblioteca SheetJS não foi carregada.");
                         return;
                     }
 
                     const workbook = XLSX.read(data, { type: 'array' });
-                    console.log("Abas encontradas no arquivo:", workbook.SheetNames);
+                    console.log("Abas encontradas:", workbook.SheetNames);
 
-                    // Identifica as abas de forma inteligente (independente de maiúsculas/minúsculas ou acentos)
                     const abaMae = workbook.SheetNames.find(n => n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes('mae')) || workbook.SheetNames[0];
                     const abaFilho = workbook.SheetNames.find(n => n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes('filho')) || workbook.SheetNames[1];
                     const abaPresenca = workbook.SheetNames.find(n => n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes('presen')) || workbook.SheetNames[2];
@@ -172,7 +300,7 @@
                     db.presenca = (abaPresenca && workbook.Sheets[abaPresenca]) ? XLSX.utils.sheet_to_json(workbook.Sheets[abaPresenca], {defval: ""}) : [];
 
                     if (db.mae.length === 0) {
-                        alert("Atenção: Não foi possível ler dados válidos da aba principal. Abas disponíveis no arquivo: " + workbook.SheetNames.join(", "));
+                        alert("Atenção: A aba de Mães está vazia ou não foi identificada. Abas no arquivo: " + workbook.SheetNames.join(", "));
                         return;
                     }
 
@@ -182,10 +310,8 @@
                     document.getElementById('welcomeScreen').classList.add('hidden');
                     document.getElementById('appContainer').classList.remove('hidden');
                     carregarRegistroAtual();
-                    
-                    console.log(`Importação bem-sucedida! Mães: ${db.mae.length}, Filhos: ${db.filho.length}`);
                 } catch (err) {
-                    console.error("Erro na leitura do Excel:", err);
+                    console.error(err);
                     alert("Erro ao processar o arquivo Excel: " + err.message);
                 }
             };
@@ -201,25 +327,33 @@
             if (currentIndex >= registrosFiltrados.length) currentIndex = registrosFiltrados.length - 1;
 
             const mae = registrosFiltrados[currentIndex];
-            document.getElementById('maeCpf').value = mae['CPF'] || '';
-            document.getElementById('maeNome').value = mae['Nome'] || '';
-            document.getElementById('maeTelefone').value = mae['Telefone'] || '';
-            document.getElementById('maeGrupo').value = mae['Grupo'] || '';
-            document.getElementById('badgeGrupo').innerText = `Grupo: ${mae['Grupo'] || 'N/D'}`;
-            document.getElementById('counterInfo').innerText = `Registro ${currentIndex + 1} de ${registrosFiltrados.length}`;
+            
+            document.getElementById('maeCadastro').value = getValor(mae, ['Cadastro', 'cadastro', 'ID']);
+            document.getElementById('maeDataEntrada').value = getValor(mae, ['Data de Entrada', 'Data Entrada', 'Entrada']);
+            document.getElementById('maeCpf').value = getValor(mae, ['CPF', 'cpf', 'Cpf']);
+            document.getElementById('maeNome').value = getValor(mae, ['Nome', 'Nome Completo', 'Mãe']);
+            document.getElementById('maeTelefone').value = getValor(mae, ['Telefone', 'Fone', 'Tel']);
+            document.getElementById('maeEndereco').value = getValor(mae, ['Endereço', 'Endereco', 'Logradouro']);
+            document.getElementById('maeBairro').value = getValor(mae, ['Bairro', 'bairro']);
+            document.getElementById('maeGrupo').value = getValor(mae, ['Grupo', 'grupo']);
+            document.getElementById('maeObservacao').value = getValor(mae, ['Observação', 'Observacao', 'Obs']);
+            
+            const grupoVal = getValor(mae, ['Grupo', 'grupo']);
+            document.getElementById('badgeGrupo').innerText = `Grupo: ${grupoVal || 'N/D'}`;
+            document.getElementById('counterInfo').innerText = `${currentIndex + 1} de ${registrosFiltrados.length}`;
 
-            renderizarFilhos(mae['CPF']);
-            renderizarPresenca(mae['CPF']);
+            const cpfVal = getValor(mae, ['CPF', 'cpf', 'Cpf']);
+            renderizarFilhos(cpfVal);
+            renderizarPresenca(cpfVal);
         }
 
         function limparCamposVazios() {
-            document.getElementById('maeCpf').value = '';
-            document.getElementById('maeNome').value = '';
-            document.getElementById('maeTelefone').value = '';
-            document.getElementById('maeGrupo').value = '';
+            ['maeCadastro', 'maeDataEntrada', 'maeCpf', 'maeNome', 'maeTelefone', 'maeEndereco', 'maeBairro', 'maeGrupo', 'maeObservacao'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
             document.getElementById('counterInfo').innerText = `0 de 0`;
-            document.getElementById('listaFilhos').innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Nenhum registro.</td></tr>`;
-            document.getElementById('listaPresenca').innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400">Nenhum registro.</td></tr>`;
+            document.getElementById('listaFilhos').innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">Nenhum registro.</td></tr>`;
+            document.getElementById('listaPresenca').innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Nenhum registro.</td></tr>`;
         }
 
         function mudarRegistro(direcao) {
@@ -238,11 +372,14 @@
             if (!termo) {
                 registrosFiltrados = [...db.mae];
             } else {
-                registrosFiltrados = db.mae.filter(m => 
-                    String(m['Nome']).toLowerCase().includes(termo) ||
-                    String(m['CPF']).toLowerCase().includes(termo) ||
-                    String(m['Grupo']).toLowerCase().includes(termo)
-                );
+                registrosFiltrados = db.mae.filter(m => {
+                    const nome = String(getValor(m, ['Nome', 'Nome Completo'])).toLowerCase();
+                    const cpf = String(getValor(m, ['CPF', 'cpf'])).toLowerCase();
+                    const grupo = String(getValor(m, ['Grupo', 'grupo'])).toLowerCase();
+                    const bairro = String(getValor(m, ['Bairro', 'bairro'])).toLowerCase();
+                    const cad = String(getValor(m, ['Cadastro', 'cadastro'])).toLowerCase();
+                    return nome.includes(termo) || cpf.includes(termo) || grupo.includes(termo) || bairro.includes(termo) || cad.includes(termo);
+                });
             }
             currentIndex = 0;
             carregarRegistroAtual();
@@ -250,34 +387,90 @@
 
         function atualizarMae() {
             const cpfAtual = document.getElementById('maeCpf').value;
-            const maeObj = db.mae.find(m => m['CPF'] === cpfAtual);
+            const maeObj = db.mae.find(m => String(getValor(m, ['CPF', 'cpf'])) === String(cpfAtual));
             if (maeObj) {
-                maeObj['Nome'] = document.getElementById('maeNome').value;
-                maeObj['Telefone'] = document.getElementById('maeTelefone').value;
-                maeObj['Grupo'] = document.getElementById('maeGrupo').value;
-                document.getElementById('badgeGrupo').innerText = `Grupo: ${maeObj['Grupo']}`;
+                const cadVal = document.getElementById('maeCadastro').value;
+                setValor(maeObj, ['Cadastro'], cadVal !== "" ? Number(cadVal) : "");
+                setValor(maeObj, ['Data de Entrada'], document.getElementById('maeDataEntrada').value);
+                setValor(maeObj, ['Nome'], document.getElementById('maeNome').value);
+                setValor(maeObj, ['Telefone'], document.getElementById('maeTelefone').value);
+                setValor(maeObj, ['Endereço'], document.getElementById('maeEndereco').value);
+                setValor(maeObj, ['Bairro'], document.getElementById('maeBairro').value);
+                setValor(maeObj, ['Grupo'], document.getElementById('maeGrupo').value);
+                setValor(maeObj, ['Observação'], document.getElementById('maeObservacao').value);
+                document.getElementById('badgeGrupo').innerText = `Grupo: ${document.getElementById('maeGrupo').value}`;
             }
+        }
+
+        function novaMaeModal() {
+            const novoCpf = prompt("Digite o CPF da nova mãe (Ex: 000.000.000-00):");
+            if (!novoCpf || !novoCpf.trim()) return;
+            
+            if (db.mae.some(m => String(getValor(m, ['CPF', 'cpf'])) === novoCpf.trim())) {
+                alert("Este CPF já está cadastrado!");
+                return;
+            }
+
+            const maxCad = db.mae.reduce((max, m) => {
+                const c = Number(getValor(m, ['Cadastro'])) || 0;
+                return c > max ? c : max;
+            }, 0);
+
+            const hojeStr = new Date().toLocaleDateString('pt-BR');
+            const novaMae = {
+                "Cadastro": maxCad + 1,
+                "Data de Entrada": hojeStr,
+                "CPF": novoCpf.trim(),
+                "Nome": "Nova Mãe",
+                "Telefone": "",
+                "Endereço": "",
+                "Bairro": "",
+                "Grupo": "",
+                "Observação": ""
+            };
+
+            db.mae.push(novaMae);
+            document.getElementById('searchInput').value = '';
+            registrosFiltrados = [...db.mae];
+            currentIndex = registrosFiltrados.length - 1;
+            carregarRegistroAtual();
         }
 
         function renderizarFilhos(cpfMae) {
             const tbody = document.getElementById('listaFilhos');
             tbody.innerHTML = '';
-            const filhosDaMae = db.filho.filter(f => String(f['Mãe']) === String(cpfMae));
+            
+            const filhosDaMae = db.filho.filter(f => String(getValor(f, ['Mãe', 'Mae'])) === String(cpfMae));
 
             if (filhosDaMae.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Nenhum filho cadastrado.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">Nenhum filho cadastrado para esta família.</td></tr>`;
                 return;
             }
 
             filhosDaMae.forEach((filho) => {
                 const globalIndex = db.filho.indexOf(filho);
+                
+                const nomeFilho = getValor(filho, ['Nome']);
+                const sexoFilho = getValor(filho, ['Sexo']);
+                const nascStr = getValor(filho, ['Nascimento', 'Nascimento (Data)']);
+                const idadeStr = getValor(filho, ['Idade', 'Idade (nºA e nºM)']);
+                const obsFilho = getValor(filho, ['Observação', 'Observacao']);
+
                 const tr = document.createElement('tr');
-                tr.className = "border-b hover:bg-slate-50";
+                tr.className = "hover:bg-slate-50/80 transition";
                 tr.innerHTML = `
-                    <td class="p-2"><input type="text" value="${filho['Nome']}" onchange="db.filho[${globalIndex}]['Nome']=this.value" class="w-full px-2 py-1 border rounded text-sm"></td>
-                    <td class="p-2"><input type="number" value="${filho['Idade Anos']}" onchange="db.filho[${globalIndex}]['Idade Anos']=this.value" class="w-full px-2 py-1 border rounded text-sm"></td>
-                    <td class="p-2"><input type="number" value="${filho['Idade Meses']}" onchange="db.filho[${globalIndex}]['Idade Meses']=this.value" class="w-full px-2 py-1 border rounded text-sm"></td>
-                    <td class="p-2 text-center"><button onclick="db.filho.splice(${globalIndex},1);renderizarFilhos('${cpfMae}')" class="text-red-500 hover:text-red-700 font-bold text-xs px-2 py-1 bg-red-50 rounded">Excluir</button></td>
+                    <td class="p-2"><input type="text" value="${nomeFilho}" onchange="setValor(db.filho[${globalIndex}], ['Nome'], this.value)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-asa-green"></td>
+                    <td class="p-2">
+                        <select onchange="setValor(db.filho[${globalIndex}], ['Sexo'], this.value)" class="w-full px-2 py-1.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-asa-green">
+                            <option value="" ${sexoFilho === '' ? 'selected' : ''}>-</option>
+                            <option value="M" ${sexoFilho === 'M' ? 'selected' : ''}>M</option>
+                            <option value="F" ${sexoFilho === 'F' ? 'selected' : ''}>F</option>
+                        </select>
+                    </td>
+                    <td class="p-2"><input type="text" value="${nascStr}" placeholder="DD/MM/AAAA" onchange="setValor(db.filho[${globalIndex}], ['Nascimento'], this.value)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-asa-green"></td>
+                    <td class="p-2"><input type="text" value="${idadeStr}" onchange="setValor(db.filho[${globalIndex}], ['Idade'], this.value)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-lg text-sm bg-slate-50/70"></td>
+                    <td class="p-2"><input type="text" value="${obsFilho}" onchange="setValor(db.filho[${globalIndex}], ['Observação'], this.value)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-asa-green"></td>
+                    <td class="p-2 text-center"><button onclick="db.filho.splice(${globalIndex},1);renderizarFilhos('${cpfMae}')" class="text-red-600 hover:bg-red-100 font-semibold text-xs px-2.5 py-1.5 bg-red-50 rounded-lg transition">Excluir</button></td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -286,33 +479,48 @@
         function adicionarFilhoModal() {
             const cpfAtual = document.getElementById('maeCpf').value;
             if (!cpfAtual) return;
-            db.filho.push({ "Mãe": cpfAtual, "Nome": "Novo Filho", "Idade Anos": 0, "Idade Meses": 0 });
+            
+            const hojeStr = new Date().toLocaleDateString('pt-BR');
+            db.filho.push({
+                "Mãe": cpfAtual,
+                "Nome": "Novo Filho",
+                "Sexo": "",
+                "Nascimento": hojeStr,
+                "Idade": "0a 0m",
+                "IdadeFiltro": 0,
+                "Observação": ""
+            });
             renderizarFilhos(cpfAtual);
         }
 
         function renderizarPresenca(cpfMae) {
             const tbody = document.getElementById('listaPresenca');
             tbody.innerHTML = '';
-            const presencasDaMae = db.presenca.filter(p => String(p['Mãe']) === String(cpfMae));
+            const presencasDaMae = db.presenca.filter(p => String(getValor(p, ['Mãe', 'Mae'])) === String(cpfMae));
 
             if (presencasDaMae.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400">Nenhum registro de presença.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Nenhum registro de presença encontrado.</td></tr>`;
                 return;
             }
 
             presencasDaMae.forEach((p) => {
                 const globalIndex = db.presenca.indexOf(p);
+                const dataPres = getValor(p, ['Data']);
+                const statusPres = getValor(p, ['Presente']);
+                const obsPres = getValor(p, ['Observação', 'Observacao']);
+
                 const tr = document.createElement('tr');
-                tr.className = "border-b hover:bg-slate-50";
+                tr.className = "hover:bg-slate-50/80 transition";
                 tr.innerHTML = `
-                    <td class="p-2"><input type="text" value="${p['Data']}" onchange="db.presenca[${globalIndex}]['Data']=this.value" class="w-full px-2 py-1 border rounded text-sm"></td>
+                    <td class="p-2"><input type="text" value="${dataPres}" onchange="setValor(db.presenca[${globalIndex}], ['Data'], this.value)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-asa-orange"></td>
                     <td class="p-2">
-                        <select onchange="db.presenca[${globalIndex}]['Presente']=this.value" class="w-full px-2 py-1 border rounded text-sm">
-                            <option value="Sim" ${p['Presente'] === 'Sim' ? 'selected' : ''}>Presente</option>
-                            <option value="Não" ${p['Presente'] === 'Não' ? 'selected' : ''}>Falta</option>
+                        <select onchange="setValor(db.presenca[${globalIndex}], ['Presente'], this.value)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-asa-orange">
+                            <option value="Sim" ${statusPres === 'Sim' ? 'selected' : ''}>Sim</option>
+                            <option value="Não" ${statusPres === 'Não' ? 'selected' : ''}>Não</option>
                         </select>
                     </td>
-                    <td class="p-2 text-center"><button onclick="db.presenca.splice(${globalIndex},1);renderizarPresenca('${cpfMae}')" class="text-red-500 hover:text-red-700 font-bold text-xs px-2 py-1 bg-red-50 rounded">Excluir</button></td>
+                    <td class="p-2"><input type="text" value="${obsPres}" onchange="setValor(db.presenca[${globalIndex}], ['Observação'], this.value)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-asa-orange"></td>
+                    <td class="p-2 text-center"><button onclick="db.presenca.splice(${globalIndex},1);renderizarPresenca('${cpfMae}')" class="text-red-600 hover:bg-red-100 font-semibold text-xs px-2.5 py-1.5 bg-red-50 rounded-lg transition">Excluir</button></td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -322,28 +530,85 @@
             const cpfAtual = document.getElementById('maeCpf').value;
             if (!cpfAtual) return;
             const hoje = new Date().toLocaleDateString('pt-BR');
-            if (db.presenca.some(p => String(p['Mãe']) === String(cpfAtual) && String(p['Data']) === hoje)) {
+            
+            if (db.presenca.some(p => String(getValor(p, ['Mãe', 'Mae'])) === String(cpfAtual) && String(getValor(p, ['Data'])) === hoje)) {
                 alert("Já existe presença registrada hoje!");
                 return;
             }
-            db.presenca.push({ "Mãe": cpfAtual, "Data": hoje, "Presente": "Sim" });
+            
+            db.presenca.push({ "Mãe": cpfAtual, "Data": hoje, "Presente": "Sim", "Observação": "" });
             renderizarPresenca(cpfAtual);
         }
 
-        // EXPORTAÇÃO ESTILIZADA
         function exportarExcelEstilizado() {
             if (db.mae.length === 0) {
                 alert("Não há dados para exportar.");
                 return;
             }
 
+            const maeExport = db.mae.map(m => {
+                const cad = getValor(m, ['Cadastro']);
+                return {
+                    "Cadastro": cad !== "" ? Number(cad) : "",
+                    "Data de Entrada": getValor(m, ['Data de Entrada']),
+                    "CPF": String(getValor(m, ['CPF'])),
+                    "Nome": String(getValor(m, ['Nome'])),
+                    "Telefone": String(getValor(m, ['Telefone'])),
+                    "Endereço": String(getValor(m, ['Endereço'])),
+                    "Bairro": String(getValor(m, ['Bairro'])),
+                    "Grupo": String(getValor(m, ['Grupo'])),
+                    "Observação": String(getValor(m, ['Observação']))
+                };
+            });
+
+            const filhoExport = db.filho.map(f => {
+                const nasc = String(getValor(f, ['Nascimento', 'Nascimento (Data)']));
+                let idadeTexto = String(getValor(f, ['Idade']));
+                let idadeNum = getValor(f, ['IdadeFiltro']);
+
+                if (nasc) {
+                    const calc = calcularIdadeExportacao(nasc);
+                    idadeTexto = calc.texto;
+                    idadeNum = calc.filtro;
+                }
+
+                return {
+                    "Mãe": String(getValor(f, ['Mãe', 'Mae'])),
+                    "Nome": String(getValor(f, ['Nome'])),
+                    "Sexo": String(getValor(f, ['Sexo'])),
+                    "Nascimento": nasc,
+                    "Idade": idadeTexto,
+                    "IdadeFiltro": idadeNum !== "" ? Number(idadeNum) : 0,
+                    "Observação": String(getValor(f, ['Observação']))
+                };
+            });
+
+            const presencaExport = db.presenca.map(p => ({
+                "Mãe": String(getValor(p, ['Mãe', 'Mae'])),
+                "Data": String(getValor(p, ['Data'])),
+                "Presente": String(getValor(p, ['Presente'])),
+                "Observação": String(getValor(p, ['Observação']))
+            }));
+
             const wb = XLSX.utils.book_new();
 
-            const formatarAbaComEstilo = (dados, nomeAba) => {
-                const ws = XLSX.utils.json_to_sheet(dados);
-                const range = XLSX.utils.decode_range(ws['!ref']);
+            const formatarAbaComEstilo = (dados, headersPadrao, nomeAba) => {
+                const ws = dados.length > 0 
+                    ? XLSX.utils.json_to_sheet(dados, { header: headersPadrao })
+                    : XLSX.utils.aoa_to_sheet([headersPadrao]);
                 
+                const range = XLSX.utils.decode_range(ws['!ref']);
                 ws['!autofilter'] = { ref: XLSX.utils.encode_range(range) };
+
+                const colWidths = headersPadrao.map((h) => {
+                    let maxLen = h.length;
+                    dados.forEach(row => {
+                        const val = String(row[h] || "");
+                        if (val.length > maxLen) maxLen = val.length;
+                    });
+                    return { wch: maxLen + 5 };
+                });
+                ws['!cols'] = colWidths;
 
                 for (let R = range.s.r; R <= range.e.r; ++R) {
                     for (let C = range.s.c; C <= range.e.c; ++C) {
@@ -374,11 +639,23 @@
                 XLSX.utils.book_append_sheet(wb, ws, nomeAba);
             };
 
-            formatarAbaComEstilo(db.mae, "Mãe");
-            formatarAbaComEstilo(db.filho, "Filho");
-            formatarAbaComEstilo(db.presenca, "Presença");
+            formatarAbaComEstilo(
+                maeExport, 
+                ["Cadastro", "Data de Entrada", "CPF", "Nome", "Telefone", "Endereço", "Bairro", "Grupo", "Observação"], 
+                "Mãe"
+            );
+            formatarAbaComEstilo(
+                filhoExport, 
+                ["Mãe", "Nome", "Sexo", "Nascimento", "Idade", "IdadeFiltro", "Observação"], 
+                "Filho"
+            );
+            formatarAbaComEstilo(
+                presencaExport, 
+                ["Mãe", "Data", "Presente", "Observação"], 
+                "Presença"
+            );
 
-            XLSX.writeFile(wb, "base_unificada_formatada.xlsx");
+            XLSX.writeFile(wb, "base_asa_formatada.xlsx");
         }
     </script>
 </body>
